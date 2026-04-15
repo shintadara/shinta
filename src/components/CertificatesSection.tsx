@@ -1,128 +1,189 @@
-import { motion } from 'framer-motion';
-import { Award, ExternalLink, Calendar } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+"use client";
+
+import { motion } from "framer-motion";
+import { Shield, Zap, Cpu, ExternalLink, Fingerprint, Sparkles, Diamond, Heart } from "lucide-react";
+import { useState, useRef } from "react";
 
 const certificates = [
   {
-    title: 'AWS Certified Solutions Architect',
-    issuer: 'Amazon Web Services',
-    date: '2024',
-    credentialId: 'AWS-SAA-123456',
-    image: '🏆',
-    color: 'from-orange-500/20 to-yellow-500/20',
-    link: '#',
+    id: "CERT-01",
+    title: "System Architect Elite",
+    issuer: "Global Tech Alliance",
+    level: "Supreme Distinction",
+    icon: Shield,
+    color: "#F4C2C2", // Rose Gold / Soft Pink
+    top: "15%", left: "20%",
+    desc: "Keahlian tinggi dalam menyusun struktur sistem yang kokoh namun tetap elegan."
   },
   {
-    title: 'Google Professional Cloud Developer',
-    issuer: 'Google Cloud',
-    date: '2023',
-    credentialId: 'GCP-PCD-789012',
-    image: '☁️',
-    color: 'from-blue-500/20 to-cyan-500/20',
-    link: '#',
+    id: "CERT-02",
+    title: "Frontend Prodigy",
+    issuer: "Modern Web Academy",
+    level: "Elite Excellence",
+    icon: Zap,
+    color: "#FFD700", // Soft Champagne Gold
+    top: "45%", left: "65%",
+    desc: "Sentuhan artistik dalam setiap baris kode untuk antarmuka yang mempesona."
   },
   {
-    title: 'Meta Front-End Developer',
-    issuer: 'Meta (Coursera)',
-    date: '2023',
-    credentialId: 'META-FE-345678',
-    image: '⚛️',
-    color: 'from-blue-600/20 to-indigo-500/20',
-    link: '#',
-  },
-  {
-    title: 'MongoDB Certified Developer',
-    issuer: 'MongoDB University',
-    date: '2023',
-    credentialId: 'MDB-DEV-901234',
-    image: '🍃',
-    color: 'from-green-500/20 to-emerald-500/20',
-    link: '#',
-  },
-  {
-    title: 'Certified Kubernetes Administrator',
-    issuer: 'CNCF',
-    date: '2022',
-    credentialId: 'CKA-567890',
-    image: '⚙️',
-    color: 'from-indigo-500/20 to-purple-500/20',
-    link: '#',
-  },
-  {
-    title: 'Professional Scrum Master I',
-    issuer: 'Scrum.org',
-    date: '2022',
-    credentialId: 'PSM-I-234567',
-    image: '📋',
-    color: 'from-teal-500/20 to-cyan-500/20',
-    link: '#',
-  },
+    id: "CERT-03",
+    title: "Fullstack Commander",
+    issuer: "Code Masters Lab",
+    level: "Master Artistry",
+    icon: Cpu,
+    color: "#10B981", // Soft Emerald
+    top: "70%", left: "25%",
+    desc: "Penguasaan menyeluruh dari logika inti hingga penyajian visual yang sempurna."
+  }
 ];
 
 export default function CertificatesSection() {
-  return (
-    <section id="certificates" className="py-20 md:py-32">
-      <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <span className="text-primary font-medium mb-2 block">Kredensial</span>
-          <h2 className="font-display text-3xl md:text-5xl font-bold mb-4">
-            Sertifikat &amp; Lisensi
-          </h2>
-          <div className="w-20 h-1 bg-primary mx-auto rounded-full" />
-        </motion.div>
+  const containerRef = useRef(null);
+  const [hovered, setHovered] = useState<number | null>(null);
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
-          {certificates.map((cert, index) => (
-            <motion.div
-              key={cert.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group"
-            >
-              <div className="h-full p-6 glass rounded-2xl shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-2">
-                <div className={`w-16 h-16 rounded-xl mb-4 flex items-center justify-center bg-gradient-to-br ${cert.color}`}>
-                  <span className="text-3xl">{cert.image}</span>
+  return (
+    <section 
+      id="certificates" 
+      ref={containerRef}
+      className="py-32 bg-[#000814] min-h-[110vh] overflow-hidden font-serif relative flex items-center justify-center"
+    >
+      {/* FEMININE NAVY AMBIANCE */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Soft Radial Glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,_#001d3d_0%,_transparent_70%)] opacity-40" />
+        
+        {/* Floating Silk Lines (Mengganti grid kaku) */}
+        <svg className="absolute inset-0 w-full h-full opacity-10">
+          <motion.path
+            d="M-100 300 Q 400 100 900 400 T 1600 200"
+            fill="none"
+            stroke="#F4C2C2"
+            strokeWidth="1"
+            animate={{ d: ["M-100 300 Q 400 100 900 400 T 1600 200", "M-100 350 Q 400 150 900 450 T 1600 250", "M-100 300 Q 400 100 900 400 T 1600 200"] }}
+            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </svg>
+      </div>
+
+      <div className="container relative z-10 px-6 mx-auto h-full">
+        
+        {/* CENTER TITLE - ELEGANT TYPOGRAPHY */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none">
+           <motion.div 
+             initial={{ opacity: 0 }}
+             whileInView={{ opacity: 1 }}
+             className="space-y-2"
+           >
+             <div className="flex justify-center items-center gap-3 opacity-40">
+                <Sparkles size={14} className="text-[#F4C2C2]" />
+                <span className="text-[11px] font-sans font-medium text-white uppercase tracking-[1.2em]">Exquisite</span>
+             </div>
+             <h2 className="text-9xl md:text-[12rem] font-light text-white/[0.03] leading-none uppercase tracking-widest italic">
+                Archives
+             </h2>
+           </motion.div>
+        </div>
+
+        {/* THE GLOWING PEARLS (Interaksi Klik Dipertahankan) */}
+        <div className="relative w-full h-[750px]">
+          {certificates.map((cert, idx) => {
+            const isHovered = hovered === idx;
+
+            return (
+              <motion.div
+                key={cert.id}
+                onMouseEnter={() => setHovered(idx)}
+                onMouseLeave={() => setHovered(null)}
+                onClick={() => setHovered(hovered === idx ? null : idx)}
+                className="absolute group z-20"
+                style={{ top: cert.top, left: cert.left }}
+              >
+                {/* THE "PEARL" POINT */}
+                <div className="relative flex items-center justify-center">
+                   <motion.div 
+                     animate={{ 
+                        scale: isHovered ? 1.4 : 1,
+                        boxShadow: isHovered ? `0 0 30px ${cert.color}` : "0 0 10px rgba(255,255,255,0.2)"
+                     }}
+                     className="w-5 h-5 bg-white rounded-full z-20 cursor-pointer border-[3px] border-white/20"
+                   />
+                   
+                   {/* SOFT AURA */}
+                   <motion.div 
+                     animate={{ scale: [1, 2.5], opacity: [0.2, 0] }}
+                     transition={{ repeat: Infinity, duration: 3 }}
+                     className="absolute inset-0 rounded-full bg-white"
+                   />
                 </div>
-                
-                <div className="space-y-3">
-                  <div className="flex items-start gap-2">
-                    <Award className="h-5 w-5 text-primary mt-0.5 shrink-0" />
-                    <h3 className="font-display text-lg font-bold group-hover:text-primary transition-colors">
-                      {cert.title}
-                    </h3>
+
+                {/* THE FEMININE ELEGANT CARD */}
+                <motion.div
+                  initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                  animate={{ 
+                    opacity: isHovered ? 1 : 0, 
+                    y: isHovered ? -160 : 30,
+                    scale: isHovered ? 1 : 0.95,
+                    pointerEvents: isHovered ? "auto" : "none"
+                  }}
+                  className="absolute left-1/2 -translate-x-1/2 w-[300px] md:w-[380px]"
+                >
+                  <div className="bg-[#001d3d]/80 backdrop-blur-2xl border border-white/10 p-8 rounded-[2rem] shadow-2xl relative overflow-hidden">
+                    
+                    {/* Decorative Corner Ornament */}
+                    <div className="absolute -top-4 -right-4 w-20 h-20 bg-white/5 rounded-full blur-2xl" />
+
+                    <div className="relative z-10 text-center">
+                      <div className="flex flex-col items-center mb-6">
+                        <div 
+                          className="p-4 rounded-full mb-4 transition-all duration-500"
+                          style={{ backgroundColor: `${cert.color}15`, border: `1px solid ${cert.color}30` }}
+                        >
+                          <cert.icon size={24} style={{ color: cert.color }} strokeWidth={1.5} />
+                        </div>
+                        <span className="text-[10px] font-sans font-bold text-white/30 uppercase tracking-[0.4em]">{cert.id}</span>
+                      </div>
+
+                      <h3 className="text-2xl font-medium text-white mb-2 tracking-tight italic">
+                        {cert.title}
+                      </h3>
+                      <p className="text-[10px] font-sans font-black uppercase tracking-widest mb-6" style={{ color: cert.color }}>
+                        {cert.issuer}
+                      </p>
+
+                      <p className="text-slate-400 text-xs italic font-light leading-relaxed mb-8 px-4">
+                        "{cert.desc}"
+                      </p>
+
+                      <div className="pt-6 border-t border-white/5 flex items-center justify-between">
+                        <div className="text-left">
+                          <span className="text-[8px] font-sans font-bold text-white/20 uppercase tracking-widest block mb-1">Status</span>
+                          <span className="text-sm font-medium italic text-white/80">{cert.level}</span>
+                        </div>
+                        
+                        <motion.button 
+                          whileHover={{ scale: 1.05 }}
+                          className="flex items-center gap-2 px-6 py-3 rounded-full bg-white/5 hover:bg-white text-white hover:text-[#000814] border border-white/10 transition-all text-[9px] font-bold uppercase tracking-widest"
+                        >
+                           Verify <ExternalLink size={12} />
+                        </motion.button>
+                      </div>
+                    </div>
                   </div>
-                  
-                  <p className="text-sm text-muted-foreground">
-                    {cert.issuer}
-                  </p>
-                  
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <Calendar className="h-4 w-4" />
-                    <span>{cert.date}</span>
-                  </div>
-                  
-                  <p className="text-xs text-muted-foreground/70 font-mono">
-                    ID: {cert.credentialId}
-                  </p>
-                  
-                  <Button variant="outline" size="sm" className="rounded-full mt-2" asChild>
-                    <a href={cert.link} target="_blank" rel="noopener noreferrer">
-                      <ExternalLink className="h-4 w-4 mr-1" />
-                      Verifikasi
-                    </a>
-                  </Button>
-                </div>
-              </div>
-            </motion.div>
-          ))}
+                </motion.div>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* BOTTOM DECOR - LUXURY FINISH */}
+        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex items-center gap-10 opacity-30">
+           <div className="h-[1px] w-20 bg-gradient-to-r from-transparent to-white/20" />
+           <div className="flex items-center gap-4">
+              <Diamond size={16} className="text-[#F4C2C2]" />
+              <span className="text-[10px] font-sans font-medium text-white uppercase tracking-[0.6em]">Portfolio 2026</span>
+              <Heart size={14} className="text-[#F4C2C2]" />
+           </div>
+           <div className="h-[1px] w-20 bg-gradient-to-l from-transparent to-white/20" />
         </div>
       </div>
     </section>

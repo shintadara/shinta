@@ -1,194 +1,177 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
-import { Sparkles, Moon, Star, Palette, Cpu, PenTool, Zap, Globe, ChevronsUpDown } from "lucide-react";
+import { motion } from "framer-motion";
+import { Code, Palette, Cpu, Sparkles, Star, Moon, Feather, PenTool } from "lucide-react";
 
-// 1. Data Definisi Skill (Tanpa posisi grid, posisi diatur oleh state)
-const initialSkillGroups = [
+const skillCategories = [
   {
-    id: 1,
-    category: "Aesthetic",
-    title: "Visual Alchemy",
+    title: "The Art of Interface",
+    subtitle: "Frontend Aesthetics",
     icon: Palette,
-    // Penjelasan yang jauh lebih panjang dan mendalam
-    desc: "Sinergi antara seni visual dan kode. Saya tidak hanya membangun antarmuka, saya menciptakan pengalaman yang memiliki 'jiwa'. Fokus pada keindahan yang intuitif, di mana setiap elemen visual memiliki tujuan fungsional. Dari pemilihan palet warna yang memengaruhi psikologi pengguna hingga transisi mikro yang memperhalus interaksi, semuanya dirancang untuk menciptakan harmoni digital yang memanjakan mata dan memudahkan pengguna.",
-    skills: ["Framer Motion", "Tailwind CSS", "UI/UX Design", "Motion Graphics", "Three.js (Basic)"],
-    color: "rgba(255, 182, 193, 0.2)" // Soft Pink
+    color: "#FFB6C1", // Soft Pink
+    skills: [
+      { name: "React / Next.js", level: 92 },
+      { name: "Tailwind CSS", level: 95 },
+      { name: "Framer Motion", level: 88 },
+    ],
   },
   {
-    id: 2,
-    category: "Logic",
-    title: "Core Engine",
+    title: "Visual Narrative",
+    subtitle: "Design & Creative",
+    icon: PenTool,
+    color: "#E6E6FA", // Soft Lavender
+    skills: [
+      { name: "UI/UX Design", level: 90 },
+      { name: "Figma Mastery", level: 85 },
+      { name: "Brand Identity", level: 82 },
+    ],
+  },
+  {
+    title: "The Digital Engine",
+    subtitle: "System Architecture",
     icon: Cpu,
-    // Penjelasan yang jauh lebih panjang dan mendalam
-    desc: "Arsitektur sistem yang kokoh adalah fondasi dari setiap inovasi digital yang sukses. Saya mengarsiteki logika backend dan frontend dengan prinsip skalabilitas, keamanan, dan performa tinggi sebagai prioritas utama. Menggunakan stack modern untuk membangun API yang efisien, mengelola state aplikasi yang kompleks, dan memastikan aliran data yang lancar. Setiap baris kode disusun dengan ketelitian tinggi untuk menjamin stabilitas sistem dalam jangka panjang dan kemudahan pemeliharaan.",
-    skills: ["Next.js", "TypeScript", "Node.js", "RESTful APIs", "Database Design"],
-    color: "rgba(135, 206, 235, 0.2)" // Sky Blue
+    color: "#87CEEB", // Sky Blue
+    skills: [
+      { name: "TypeScript", level: 85 },
+      { name: "Node.js / APIs", level: 78 },
+      { name: "Database Design", level: 80 },
+    ],
   },
-  {
-    id: 3,
-    category: "Vision",
-    title: "Brand Story",
-    icon: Star,
-    // Penjelasan yang jauh lebih panjang dan mendalam
-    desc: "Identitas digital melampaui sekadar logo; itu adalah narasi tentang siapa Anda dan nilai yang Anda bawa. Saya membantu mendefinisikan dan menerjemahkan visi merek Anda ke dalam bahasa visual yang konsisten dan berdampak di seluruh platform digital. Melalui riset mendalam dan desain konseptual, saya menciptakan strategi visual yang tidak hanya membedakan Anda dari kompetitor, tetapi juga membangun koneksi emosional yang kuat dengan audiens target Anda, memastikan pesan merek Anda tersampaikan dengan kejelasan dan keanggunan.",
-    skills: ["Figma Mastery", "Brand Strategy", "Vector Art", "Typography", "Color Theory"],
-    color: "rgba(255, 215, 0, 0.15)" // Gold
-  }
 ];
 
 export default function SkillsSection() {
-  // 2. State untuk melacak urutan item. Item pertama (index 0) selalu yang BESAR.
-  const [skillGroups, setSkillGroups] = useState(initialSkillGroups);
-
-  // 3. Fungsi untuk Menukar Posisi
-  const handleSwap = (clickedId: number) => {
-    setSkillGroups((prevGroups) => {
-      const clickedIndex = prevGroups.findIndex((group) => group.id === clickedId);
-      
-      // Jika yang diklik sudah di posisi besar (index 0), tidak perlu tukar.
-      if (clickedIndex === 0) return prevGroups;
-
-      const newGroups = [...prevGroups];
-      // Tukar item di index 0 (besar) dengan item yang diklik
-      [newGroups[0], newGroups[clickedIndex]] = [newGroups[clickedIndex], newGroups[0]];
-      
-      return newGroups;
-    });
-  };
-
   return (
-    <section id="skills" className="relative py-40 bg-[#001226] overflow-hidden font-serif">
+    <section id="skills" className="relative py-32 bg-[#001226] overflow-hidden font-serif">
       
-      {/* --- ELEGANT AMBIENT LIGHTING (Sama seperti sebelumnya) --- */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-[20%] left-[10%] w-[500px] h-[500px] bg-blue-600/10 blur-[150px] rounded-full animate-pulse" />
-        <div className="absolute bottom-[20%] right-[10%] w-[400px] h-[400px] bg-pink-600/10 blur-[120px] rounded-full animate-pulse" style={{ animationDelay: '2s' }} />
+      {/* BACKGROUND DECOR: FLOWING LIGHT */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-1/2 left-[-10%] w-[500px] h-[500px] bg-blue-500/5 blur-[120px] rounded-full" />
+        <div className="absolute top-0 right-[-5%] w-[400px] h-[400px] bg-pink-500/5 blur-[100px] rounded-full" />
       </div>
 
       <div className="container relative z-10 px-6 mx-auto max-w-7xl">
         
-        {/* --- HEADER: VERTICAL & FLOATING (Sama seperti sebelumnya) --- */}
-        <div className="flex flex-col lg:flex-row justify-between items-end mb-24 gap-8">
-          <div className="max-w-2xl">
-            <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} className="flex items-center gap-3 mb-6">
-              <Moon size={16} className="text-pink-300" />
-              <span className="text-[10px] font-sans font-bold text-pink-200 uppercase tracking-[0.5em]">The Craftsmanship</span>
-            </motion.div>
-            <h2 className="text-6xl md:text-8xl font-light text-white leading-none">
-              Technical <br />
-              <span className="italic font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-200 via-white to-blue-200">Poetry</span>
-            </h2>
-          </div>
-          <div className="hidden lg:block h-[1px] flex-1 bg-gradient-to-r from-transparent via-white/10 to-transparent mx-10 mb-6" />
-          <p className="text-slate-500 font-sans text-xs uppercase tracking-[0.3em] lg:w-48 leading-loose text-center lg:text-left">
-            Synthesizing logic and beauty into a singular experience.
-          </p>
+        {/* HEADER SECTION: ELEGANT & MINIMALIST */}
+        <div className="flex flex-col items-center mb-24 text-center">
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            className="flex items-center gap-3 px-6 py-2 bg-white/5 border border-white/10 rounded-full mb-6"
+          >
+            <Sparkles size={14} className="text-pink-300" />
+            <span className="text-[10px] font-sans font-bold text-pink-200 uppercase tracking-[0.4em]">Craftsmanship Portfolio</span>
+          </motion.div>
+          
+          <h2 className="text-5xl md:text-7xl font-light text-white leading-tight">
+            Curated <span className="italic font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-200 via-white to-blue-200">Proficiencies</span>
+          </h2>
         </div>
 
-        {/* --- DYNAMIC SWAPPING BENTO GRID --- */}
-        {/* Menggunakan AnimatePresence untuk animasi penukaran yang halus */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:auto-rows-[minmax(300px,auto)]">
-          <AnimatePresence initial={false}>
-            {skillGroups.map((group, i) => {
-              const isLarge = i === 0; // Item pertama adalah yang BESAR
+        {/* SKILLS GRID: GLASS CARDS WITH ORGANIC FEEL */}
+        <div className="grid lg:grid-cols-3 gap-10">
+          {skillCategories.map((category, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: idx * 0.15 }}
+              className="relative group"
+            >
+              {/* Card Container */}
+              <div className="relative z-10 bg-white/[0.03] backdrop-blur-2xl border border-white/10 p-10 rounded-[3rem] h-full transition-all duration-700 group-hover:bg-white/[0.05] group-hover:border-white/20 shadow-2xl overflow-hidden">
+                
+                {/* Decorative corner glow */}
+                <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 blur-3xl rounded-full -mr-16 -mt-16" />
 
-              return (
-                <motion.div
-                  key={group.id} // Sangat penting untuk Framer Motion melacak item
-                  layoutId={`card-${group.id}`} // Ajaib: Menghubungkan elemen untuk animasi pertukaran
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.8 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                  // 4. Logika Grid Dinamis
-                  className={`relative group overflow-hidden rounded-[3.5rem] border border-white/10 bg-white/[0.02] backdrop-blur-3xl transition-all duration-700 hover:border-white/20 flex flex-col justify-between
-                    ${isLarge 
-                      ? "lg:col-span-8 lg:row-span-2 p-16 cursor-default" // Gaya untuk yang BESAR
-                      : "lg:col-span-4 lg:row-span-1 p-10 cursor-pointer hover:bg-white/[0.05]" // Gaya untuk yang KECIL (bisa diklik)
-                    }`}
-                  onClick={() => !isLarge && handleSwap(group.id)} // Hanya tukar jika yang kecil diklik
-                >
-                  {/*Animated Background Aura (Hanya muncul saat hover) */}
+                {/* Category Icon & Title */}
+                <div className="relative z-10 flex flex-col items-center text-center mb-12">
                   <div 
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none"
-                    style={{ background: `radial-gradient(circle at center, ${group.color}, transparent 70%)` }}
-                  />
+                    className="p-5 rounded-full mb-6 border-2 border-dashed transition-transform duration-700 group-hover:rotate-[360deg]"
+                    style={{ borderColor: `${category.color}40`, backgroundColor: `${category.color}08` }}
+                  >
+                    <category.icon size={32} style={{ color: category.color }} strokeWidth={1.5} />
+                  </div>
+                  <h3 className="text-2xl font-light text-white tracking-wide mb-2">
+                    {category.title}
+                  </h3>
+                  <p className="text-[10px] font-sans font-bold text-slate-500 uppercase tracking-[0.3em]">
+                    {category.subtitle}
+                  </p>
+                </div>
 
-                  <div className="relative z-10">
-                    <div className="flex justify-between items-start mb-10">
-                      <div className="p-4 rounded-3xl bg-white/5 border border-white/10 group-hover:scale-110 transition-transform duration-500">
-                        <group.icon size={isLarge ? 32 : 24} className="text-white opacity-80" strokeWidth={1.5} />
-                      </div>
-                      <div className="flex items-center gap-4">
-                        <span className="text-[10px] font-sans font-black text-white/20 uppercase tracking-[0.4em] group-hover:text-pink-300 transition-colors">
-                          {group.category}
+                {/* Skill Bars: Minimalist & Soft */}
+                <div className="space-y-10 relative z-10">
+                  {category.skills.map((skill, sIdx) => (
+                    <div key={sIdx} className="group/skill">
+                      <div className="flex justify-between items-center mb-3">
+                        <span className="text-xs font-sans font-bold text-slate-400 uppercase tracking-widest group-hover/skill:text-white transition-colors">
+                          {skill.name}
                         </span>
-                        {/* Ikon Indikator bahwa kartu kecil bisa ditukar */}
-                        {!isLarge && (
-                          <ChevronsUpDown size={16} className="text-white/10 group-hover:text-pink-300 animate-pulse" />
-                        )}
+                        <span className="text-xs italic text-pink-200/50">
+                          {skill.level}%
+                        </span>
+                      </div>
+                      
+                      <div className="h-[2px] w-full bg-white/5 overflow-hidden">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          whileInView={{ width: `${skill.level}%` }}
+                          transition={{ duration: 2, ease: "circOut" }}
+                          className="h-full relative"
+                          style={{ backgroundColor: category.color }}
+                        >
+                          <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-white rounded-full shadow-[0_0_10px_#fff]" />
+                        </motion.div>
                       </div>
                     </div>
+                  ))}
+                </div>
 
-                    <h3 className={`${isLarge ? "text-4xl md:text-5xl" : "text-3xl"} font-light text-white mb-4 transition-all`}>{group.title}</h3>
-                    
-                    {/* 5. Penjelasan Panjang: Muncul penuh jika Besar, dipotong jika Kecil */}
-                    <p className={`text-slate-400 italic font-light leading-relaxed transition-all 
-                      ${isLarge ? "text-base max-w-3xl mb-12" : "text-sm mb-8 line-clamp-3 group-hover:line-clamp-none"}`}>
-                      "{group.desc}"
-                    </p>
-                  </div>
+                {/* Floating Decoration */}
+                <div className="absolute bottom-8 right-10 opacity-10 group-hover:opacity-30 transition-opacity">
+                  <Star size={40} className="text-white" />
+                </div>
+              </div>
 
-                  {/* Unique Skill Tags Cloud (Sama seperti sebelumnya) */}
-                  <div className="relative z-10 flex flex-wrap gap-3 mt-auto">
-                    {group.skills.map((skill, skIdx) => (
-                      <span 
-                        key={skIdx} 
-                        className="px-5 py-2 rounded-full border border-white/5 bg-white/[0.03] text-[10px] font-sans font-bold text-white/40 uppercase tracking-widest group-hover:border-pink-300/30 group-hover:text-white transition-all"
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Decorative Corner Element (Sama seperti sebelumnya) */}
-                  <div className="absolute -bottom-10 -right-10 opacity-5 group-hover:opacity-20 transition-all duration-700 group-hover:-rotate-12">
-                    <Globe size={isLarge ? 220 : 150} strokeWidth={0.5} />
-                  </div>
-                </motion.div>
-              );
-            })}
-          </AnimatePresence>
+              {/* Background Aura */}
+              <div 
+                className="absolute inset-0 blur-[80px] opacity-0 group-hover:opacity-10 transition-opacity duration-700 rounded-full"
+                style={{ backgroundColor: category.color }}
+              />
+            </motion.div>
+          ))}
         </div>
 
-        {/* --- THE FLOATING SUMMARY CARD (Sama seperti sebelumnya) --- */}
-        <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} className="mt-16 p-1 bg-gradient-to-r from-pink-300/20 via-white/10 to-blue-300/20 rounded-[3rem]">
-          <div className="bg-[#001226] rounded-[2.9rem] p-12 flex flex-col md:flex-row items-center gap-12 justify-between">
-             <div className="flex items-center gap-8">
-                <div className="relative">
-                  <div className="w-24 h-24 rounded-full border-2 border-dashed border-pink-300/30 animate-[spin_10s_linear_infinite]" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <Zap size={32} className="text-pink-300" fill="currentColor" />
-                  </div>
-                </div>
-                <div>
-                  <h4 className="text-white text-xl font-light tracking-widest uppercase">The Performance Pulse</h4>
-                  <p className="text-slate-500 text-xs mt-2 italic font-light">Optimized for serenity and speed.</p>
-                </div>
+        {/* BOTTOM PHILOSOPHY LINE */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          className="mt-24 flex flex-col items-center text-center space-y-8"
+        >
+          <div className="h-[1px] w-32 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+          
+          <div className="flex items-center gap-8">
+            <Feather size={20} className="text-pink-300 opacity-50" />
+            <p className="max-w-xl text-slate-400 text-sm leading-relaxed italic font-light">
+              "Every skill is a thread in the tapestry of digital creation. I don't just write code; I weave experiences that resonate with the human spirit."
+            </p>
+            <Moon size={20} className="text-blue-300 opacity-50" />
+          </div>
+
+          <div className="flex gap-4 pt-4">
+             <div className="px-5 py-1.5 bg-white/5 border border-white/10 rounded-full text-[9px] font-sans font-bold text-white/40 uppercase tracking-[0.3em]">
+               Precision Based
              </div>
-             <div className="flex gap-16">
-                {[{ l: "Precision", v: "100%" }, { l: "Empathy", v: "Deep" }, { l: "Vision", v: "Global" }].map((stat, i) => (
-                  <div key={i} className="text-center">
-                    <p className="text-[9px] font-sans font-bold text-slate-500 uppercase tracking-widest mb-2">{stat.l}</p>
-                    <p className="text-xl text-white font-light">{stat.v}</p>
-                  </div>
-                ))}
+             <div className="px-5 py-1.5 bg-white/5 border border-white/10 rounded-full text-[9px] font-sans font-bold text-white/40 uppercase tracking-[0.3em]">
+               Elegance Driven
              </div>
           </div>
         </motion.div>
+      </div>
 
+      {/* BACKGROUND TEXT WATERMARK */}
+      <div className="absolute -bottom-10 left-10 text-[12rem] font-light text-white/[0.01] pointer-events-none select-none uppercase tracking-tighter">
+        Mastery
       </div>
     </section>
   );
